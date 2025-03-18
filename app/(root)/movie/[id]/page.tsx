@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 
 interface MoviePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const MoviePage = async ({ params }: MoviePageProps) => {
-  const { id } = params;
+  const resolvers = await Promise.all([params]);
+  const { id } = resolvers[0];
 
   // Fetch movie details from YouTube API
   const YOUTUBE_API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
@@ -32,7 +33,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
         src={`https://www.youtube.com/embed/${id}`}
         title={movie.title}
         allowFullScreen
-        className="rounded-lg mt-4"
+        className="rounded-lg mt-4 shadow-lg md:mt-0 md:rounded-none md:shadow-none md:w-full md:h-96 w-full h-80"
       />
     </div>
       <h1 className="text-2xl font-bold text-gradient mt-10">{movie.title}</h1>
