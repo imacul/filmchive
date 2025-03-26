@@ -18,6 +18,13 @@
 
   --background-image-hero-pattern: url("/hero-bg.png");
 }
+
+@layer utilities {
+  .c-space {
+    @apply sm:px-10 px-5;
+  }
+}
+
 @layer base {
   .placeholder-light-200 {
     &::placeholder {
@@ -91,8 +98,28 @@
     @apply bg-hero-pattern w-screen h-screen bg-center bg-cover absolute z-0;
   }
 
+  .field-btn {
+    @apply bg-black px-5 py-2 min-h-12 rounded-lg  shadow-2xl flex justify-center items-center text-lg text-white gap-3;
+  }
+
+  .field-btn_arrow {
+    @apply w-2.5 h-2.5 object-contain invert brightness-0;
+  }
+
+  .head-text {
+    @apply sm:text-4xl text-3xl font-semibold text-white;
+  }
+
+  .field-label {
+    @apply text-lg text-white font-medium;
+  }
+
   .wrapper {
     @apply px-5 py-12 sm:p-10 max-w-7xl mx-auto flex flex-col relative z-10;
+  }
+
+  .contact-container {
+    @apply max-w-xl relative z-10 sm:px-10 px-5 mt-12;
   }
 
   .trending {
@@ -140,7 +167,7 @@
   }
 
   .movie-card {
-    @apply bg-black  p-5 rounded-2xl shadow-inner;
+    @apply bg-slate-800  p-5 rounded-2xl shadow-inner;
 
     & img {
       @apply rounded-lg  w-full h-auto bg-cover;

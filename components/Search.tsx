@@ -13,7 +13,7 @@ const Search: React.FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
         <input
           className="placeholder:truncate"
           type="text"
-          placeholder="Search through thousands of movies"
+          placeholder="Browse movies..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

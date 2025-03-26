@@ -75,8 +75,7 @@ const Home = () => {
 
   return (
     <main>
-      <div className="pattern">
-        <div className="wrapper">
+       <div className="py-8 px-4">
           <header>
             <Image src="/hero.png" priority alt="Banner image" height={500} width={800} />
             <h1>
@@ -96,13 +95,14 @@ const Home = () => {
             ) : (
               <ul>
                 {movieList.map((movie) => (
+                 
                   <MovieCard key={movie.id} movie={movie} />
+                  
                 ))}
               </ul>
             )}
           </section>
-        </div>
-      </div>
+            </div>
     </main>
   );
 };

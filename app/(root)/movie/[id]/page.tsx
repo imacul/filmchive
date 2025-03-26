@@ -24,7 +24,6 @@ const MoviePage = async ({ params }: MoviePageProps) => {
   if (!movie) return notFound();
 
   return (
-    <div className="pattern">
       <div className="container mx-auto p-4">
     <div className="aspect-w-16 aspect-h-9 flex justify-center">
       <iframe
@@ -39,7 +38,6 @@ const MoviePage = async ({ params }: MoviePageProps) => {
       <h1 className="text-2xl font-bold text-gradient mt-10">{movie.title}</h1>
       <p className="mt-4 text-white">{movie.description}</p>
       </div>
-    </div>
   );
 };
 
