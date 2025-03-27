@@ -17,7 +17,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("query") || "";
   const cacheDir = path.join(process.cwd(), "cache");
-  const cacheKey = query ? query.toLowerCase().replace(/\s/g, "-") : "full-movie-free";
+  const category = searchParams.get("category") || "";
+  const cacheKey = `${query || "full-movie-free"}-${category || "all"}`.toLowerCase().replace(/\s/g, "-");
   const cachePath = path.join(cacheDir, `${cacheKey}.json`);
   // Ensure cache directory exists
   await fs.mkdir(cacheDir, { recursive: true }).catch(() => {});
@@ -29,7 +30,7 @@ export async function GET(request: Request) {
   } catch {}
   // Fetch from YouTube
   try {
-    const endpoint = `${YOUTUBE_API_BASE_URL}/search?part=snippet&q=${encodeURIComponent(query || "full movie free")}&type=video&videoDuration=long&videoEmbeddable=true&maxResults=20&key=${YOUTUBE_API_KEY}`;
+    const endpoint = `${YOUTUBE_API_BASE_URL}/search?part=snippet&type=video${category ? `&videoCategoryId=${category}` : ""}&q=${encodeURIComponent(query || "full movie free")}&videoDuration=long&videoEmbeddable=true&maxResults=20&key=${YOUTUBE_API_KEY}`;
     const response = await fetch(endpoint);
     if (!response.ok) {
       const errorData = await response.json();
