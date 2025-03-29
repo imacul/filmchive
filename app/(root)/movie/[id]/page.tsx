@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+// import { notFound } from "next/navigation";
 
 interface MoviePageProps {
   params: Promise<{ id: string }>;
@@ -8,10 +8,18 @@ const MoviePage = async ({ params }: MoviePageProps) => {
   const resolvers = await Promise.all([params]);
   const { id } = resolvers[0];
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000"; // Fallback for local dev
-  const response = await fetch(`${baseUrl}/api/movie/${id}`);
-  if (!response.ok) return notFound();
-
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  console.log(`Fetching movie from: ${baseUrl}/api/movie/${id}`);
+  const response = await fetch(`${baseUrl}/api/movie/${id}`, { cache: "no-store" });
+  const data = await response.json();
+  if (!response.ok) {
+    return (
+      <div className="container mx-auto p-4 text-center">
+        <h1 className="text-2xl font-bold text-red-500">Video Not Available</h1>
+        <p className="mt-4 text-white">Sorry, this movie isn’t available right now. Try another!</p>
+      </div>
+    );
+  }
   const movie: {
     id: string;
     title: string;
@@ -20,7 +28,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
     thumbnail: string;
     source: "YouTube";
     channel?: string;
-  } = await response.json();
+  } = data;
 
   return (
     <div className="container mx-auto p-4">
